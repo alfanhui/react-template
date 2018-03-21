@@ -1,17 +1,35 @@
 import React from 'react';
+import { connect } from "react-redux";
 import PropTypes from 'prop-types';
+import {SET} from 'reducerActions'
 
-const SomeThing = (props) => (
-  <div>
-    {console.log("SomeThing", props)}
-    Thing {props.thingId} is currently: {props.thing}
-  </div>
-);
-/*
-SomeThing.propTypes = {
-  thingId: PropTypes.string.isRequired,
-  thing: PropTypes.string.isRequired
-};
-*/
+@connect((store) => {
+  return {
+      state: store.generalReducer
+  };
+})
+
+class SomeThing extends React.Component{
+
+  constructor(props) {
+    super(props);
+  }
+
+  static propTypes = {
+    dispatch: PropTypes.func,
+    state: PropTypes.object,
+  };
+
+  render(){
+    return (
+      <button onClick={() => {
+        let toggle = this.props.state.toggle;
+        this.props.dispatch(SET("toggle", !toggle)); //part of redux
+      }}>
+        TOGGLE MEEE
+      </button>
+    );
+  }
+}
 
 export default SomeThing;

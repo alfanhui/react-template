@@ -4,8 +4,13 @@ import autoprefixer from 'autoprefixer';
 import path from 'path';
 
 export default {
-  resolve: {
-    extensions: ['*', '.js', '.jsx', '.json']
+    resolve: {
+        alias: {
+            reducerActions: path.resolve(__dirname, 'src/reducerActions/index.js'),
+            constants: path.resolve(__dirname, 'src/constants/'),
+            components: path.resolve(__dirname, 'src/components/'),
+        },
+        extensions: ['*', '.js', '.jsx', '.json']
   },
   devtool: 'eval-source-map', // more info:https://webpack.github.io/docs/build-performance.html#sourcemaps and https://webpack.github.io/docs/configuration.html#devtool
   entry: [
@@ -20,6 +25,15 @@ export default {
     path: path.resolve(__dirname, 'dist'), // Note: Physical files are only output by the production build task `npm run build`.
     publicPath: '/',
     filename: 'bundle.js'
+  },
+  node: {
+      fs: 'empty',
+      net: 'empty',
+      tls: 'empty',
+      dns: 'empty',
+      dgram: 'empty',
+      readline: 'empty',
+      ws: 'empty'
   },
   plugins: [
     new webpack.DefinePlugin({
@@ -47,7 +61,7 @@ export default {
         context: '/',
         postcss: () => [autoprefixer],
       }
-    })
+    }), 
   ],
   module: {
     rules: [

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from "react-redux";
 import SomeThing from './SomeThing';
-import SomeThingSetter from './SomeThingSetter';
+import PropTypes from 'prop-types';
 
 @connect((store) => {
   return {
@@ -10,6 +10,11 @@ import SomeThingSetter from './SomeThingSetter';
 })
 
 class HomePage extends React.Component{
+
+  static propTypes = {
+    dispatch: PropTypes.func,
+    state: PropTypes.object,
+  };
 
   constructor(props) {
     super(props);
@@ -31,17 +36,12 @@ class HomePage extends React.Component{
   }
 
   render(){
+    console.log(this.props.state.toggle);
     return (
       <div className={"main"}>
         <div className={'h2'}> REACT </div>
-        <SomeThing thingId="0" thing={this.props.state.thing0}/>
-        <SomeThingSetter thingId="0" />
-
-        <SomeThing thingId="1" thing={this.props.state.thing1}/>
-        <SomeThingSetter thingId="1" />
-
-        <SomeThing thingId="2" thing={this.props.state.thing2}/>
-        <SomeThingSetter thingId="2" />
+        <SomeThing/>
+    <h1>{this.props.state.toggle == false ? "FALSE" : "TRUE"}</h1> {/*I only do this conditional because boolean values do not print anything*/}
       </div>
     );
   }
