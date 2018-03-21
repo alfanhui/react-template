@@ -1,5 +1,5 @@
 import React from 'react';
-import {render} from 'react-dom';
+import ReactDOM from 'react-dom';
 import {createStore, applyMiddleware, compose} from 'redux';
 import thunk from 'redux-thunk';
 import {Provider} from 'react-redux';
@@ -14,23 +14,11 @@ const store = createStore(
   compose(applyMiddleware(thunk))
 );
 
-
-
-const App = (props) => (
-    <div className="app">
-      {/* <MuiThemeProvider> */}
-            <Root {...props} />
-      {/* </MuiThemeProvider> */}
-    </div>
-);
-
-render(
+ReactDOM.render((
       <Provider store={store}>
         <BrowserRouter>
-          <App/>
+          <Root/>
         </BrowserRouter>
       </Provider>
-    , document.getElementById('root')
+ ) , document.getElementById('root')
 );
-
-export default App;
